@@ -87,12 +87,7 @@ export default function ConnectionGuide() {
             <div className={styles.stepItem}>
               <div className={styles.stepNum}>4</div>
               <div className={styles.stepText}>
-                Configure with the following values:
-                <div style={{ marginTop: "0.5rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                  <div>&bull; **Name:** `weather-mcp`</div>
-                  <div>&bull; **Type:** `SSE`</div>
-                  <div>&bull; **URL:** `{origin}/api/sse`</div>
-                </div>
+                Configure with Name: `weather-mcp`, Type: `SSE`, and paste the URL below:
               </div>
             </div>
           </div>
@@ -106,6 +101,54 @@ export default function ConnectionGuide() {
               {copied ? <Check size={16} style={{ color: "var(--success)" }} /> : <Copy size={16} />}
             </button>
             <div className={styles.codeBlock}>{origin}/api/sse</div>
+          </div>
+
+          <div style={{ marginTop: "1rem" }}>
+            <div style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--text-primary)", marginBottom: "0.5rem" }}>
+              Alternative: Add directly to Cursor `settings.json`
+            </div>
+            <div className={styles.codeContainer}>
+              <button
+                className={styles.copyBtn}
+                onClick={() =>
+                  copyToClipboard(
+                    JSON.stringify(
+                      {
+                        "cursor.mcp.mcpServers": {
+                          "weather-mcp": {
+                            type: "sse",
+                            url: `${origin}/api/sse`,
+                            enabled: true,
+                          },
+                        },
+                      },
+                      null,
+                      2
+                    )
+                  )
+                }
+                title="Copy Cursor JSON Settings"
+              >
+                {copied ? <Check size={16} style={{ color: "var(--success)" }} /> : <Copy size={16} />}
+              </button>
+              <pre className={styles.codeBlock}>
+                <code>
+                  {JSON.stringify(
+                    {
+                      "cursor.mcp.mcpServers": {
+                        "weather-mcp": {
+                          type: "sse",
+                          url: `${origin}/api/sse`,
+                          enabled: true,
+                        },
+                      },
+                    },
+                    null,
+                    2
+                  )}
+                </code>
+              </pre>
+            </div>
           </div>
         </div>
       ) : (
